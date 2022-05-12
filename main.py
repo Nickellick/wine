@@ -6,7 +6,7 @@ import datetime
 
 env = Environment(
     loader=FileSystemLoader('.'),
-    autoescape=select_autoescape(['hrml', 'xml'])
+    autoescape=select_autoescape(['html', 'xml'])
 )
 
 template = env.get_template('template.html')
