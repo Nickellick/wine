@@ -1,14 +1,34 @@
+import pprint
 import datetime
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from unicodedata import category
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
 
-excel_data_df = pandas.read_excel('wine.xlsx')
+excel_data_df = pandas.read_excel('wine.xlsx', na_values='', keep_default_na=False)
 wine_dict = excel_data_df.transpose().to_dict()
-print(wine_dict)
+wine_dict_2 = pandas.read_excel('wine2.xlsx', na_values='', keep_default_na=False).transpose().to_dict()
+
+wines_2 = {}
+
+for value in wine_dict_2.values():
+    category = value['Категория']
+    if category not in wines_2:
+        wines_2[category] = []
+    wine = {}
+    wine['name'] = value['Название']
+    wine['variety'] = value['Сорт']
+    wine['price'] = value['Цена']
+    wine['image'] = value['Картинка']
+    wine['category'] = category
+    wines_2[category].append(wine)
+
+
+pprint.pprint(wines_2)
+
 
 wines = []
 
