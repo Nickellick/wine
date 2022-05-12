@@ -1,5 +1,6 @@
 import pprint
 import datetime
+from collections import defaultdict
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from unicodedata import category
@@ -12,12 +13,10 @@ excel_data_df = pandas.read_excel('wine.xlsx', na_values='', keep_default_na=Fal
 wine_dict = excel_data_df.transpose().to_dict()
 wine_dict_2 = pandas.read_excel('wine2.xlsx', na_values='', keep_default_na=False).transpose().to_dict()
 
-wines_2 = {}
+wines_2 = defaultdict(list)
 
 for value in wine_dict_2.values():
     category = value['Категория']
-    if category not in wines_2:
-        wines_2[category] = []
     wine = {}
     wine['name'] = value['Название']
     wine['variety'] = value['Сорт']
