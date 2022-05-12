@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
 
-excel_data_df = pandas.read_excel('wine2.xlsx', na_values='', keep_default_na=False)
+excel_data_df = pandas.read_excel('wine3.xlsx', na_values='', keep_default_na=False)
 wine_dict = excel_data_df.transpose().to_dict()
 
 categories = defaultdict(list)
@@ -22,6 +22,7 @@ for value in wine_dict.values():
     wine['price'] = value['Цена']
     wine['image'] = value['Картинка']
     wine['category'] = category
+    wine['profitable'] = value['Акция'] == 'Выгодное предложение'
     categories[category].append(wine)
 
 
