@@ -11,7 +11,7 @@ env = Environment(
 
 template = env.get_template('template.html')
 
-rendered_page = template.render(since_years =f'{datetime.datetime.now().year - 1920}')
+rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}')
 
 with open('index.html', 'w', encoding='utf8') as file:
     file.write(rendered_page)
