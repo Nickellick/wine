@@ -9,13 +9,12 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
 
-excel_data_df = pandas.read_excel('wine.xlsx', na_values='', keep_default_na=False)
+excel_data_df = pandas.read_excel('wine2.xlsx', na_values='', keep_default_na=False)
 wine_dict = excel_data_df.transpose().to_dict()
-wine_dict_2 = pandas.read_excel('wine2.xlsx', na_values='', keep_default_na=False).transpose().to_dict()
 
-wines_2 = defaultdict(list)
+categories = defaultdict(list)
 
-for value in wine_dict_2.values():
+for value in wine_dict.values():
     category = value['Категория']
     wine = {}
     wine['name'] = value['Название']
@@ -23,21 +22,7 @@ for value in wine_dict_2.values():
     wine['price'] = value['Цена']
     wine['image'] = value['Картинка']
     wine['category'] = category
-    wines_2[category].append(wine)
-
-
-pprint.pprint(wines_2)
-
-
-wines = []
-
-for value in wine_dict.values():
-    wine = {}
-    wine['name'] = value['Название']
-    wine['variety'] = value['Сорт']
-    wine['price'] = value['Цена']
-    wine['image'] = value['Картинка']
-    wines.append(wine)
+    categories[category].append(wine)
 
 
 env = Environment(
@@ -47,7 +32,7 @@ env = Environment(
 
 template = env.get_template('template.html')
 
-rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}', wines=wines)
+rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}', categories=categories)
 
 with open('index.html', 'w', encoding='utf8') as file:
     file.write(rendered_page)
