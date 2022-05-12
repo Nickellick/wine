@@ -1,4 +1,3 @@
-import pprint
 import datetime
 from collections import defaultdict
 
@@ -9,7 +8,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
 
-excel_data_df = pandas.read_excel('wine3.xlsx', na_values='', keep_default_na=False)
+excel_data_df = pandas.read_excel('wine3.xlsx',
+                                  na_values='',
+                                  keep_default_na=False)
 wine_dict = excel_data_df.transpose().to_dict()
 
 categories = defaultdict(list)
@@ -33,7 +34,8 @@ env = Environment(
 
 template = env.get_template('template.html')
 
-rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}', categories=categories)
+rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}',
+                                categories=categories)
 
 with open('index.html', 'w', encoding='utf8') as file:
     file.write(rendered_page)
