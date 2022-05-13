@@ -7,7 +7,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
 
-excel_data_df = pandas.read_excel('wine3.xlsx',
+excel_data_df = pandas.read_excel('wine.xlsx',
                                   na_values='',
                                   keep_default_na=False)
 wine_dict = excel_data_df.transpose().to_dict()
