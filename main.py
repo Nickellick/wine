@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 import datetime
 from collections import defaultdict
 from http.server import HTTPServer, SimpleHTTPRequestHandler
@@ -6,9 +7,26 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
 
 def main():
-    excel_data_df = pandas.read_excel('wine.xlsx',
-                                    na_values='',
-                                    keep_default_na=False)
+
+    parser = ArgumentParser(
+        description='This is example of wineshop website presented by dvmn.org'
+    )
+    parser.add_argument(
+        '--winedata',
+        type=str,
+        help='[ath to file with wine data. Default is wine.xlsx. See README.MD for more info',
+        default='wine.xlsx'
+        )
+    
+    args = parser.parse_args()
+
+    path_to_file = args.winedata
+
+    excel_data_df = pandas.read_excel(
+        path_to_file,
+        na_values='',
+        keep_default_na=False
+        )
     wine_dict = excel_data_df.transpose().to_dict()
 
     categories = defaultdict(list)
@@ -32,8 +50,10 @@ def main():
 
     template = env.get_template('template.html')
 
-    rendered_page = template.render(since_years=f'{datetime.datetime.now().year - 1920}',
-                                    categories=categories)
+    rendered_page = template.render(
+        since_years=f'{datetime.datetime.now().year - 1920}',
+        categories=categories
+        )
 
     with open('index.html', 'w', encoding='utf8') as file:
         file.write(rendered_page)
