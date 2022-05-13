@@ -13,6 +13,8 @@ def main():
 
     DEFAULT_FILE_PATH = 'wine.xlsx'
 
+    ESTABLISHMENT_YEAR = 1920
+
     # Parsing arguments from env
     load_dotenv('.env')
     path_to_file = os.getenv(key='DVMN_WINEDATA', default=DEFAULT_FILE_PATH)
@@ -62,7 +64,7 @@ def main():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        since_years=f'{datetime.datetime.now().year - 1920}',
+        since_years=f'{datetime.datetime.now().year - ESTABLISHMENT_YEAR}',
         wines=wines
         )
 
