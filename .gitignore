@@ -1,4 +1,9 @@
 env/
 .vscode/
+.idea
+__pycache__
+*.pyc
+*.pyd
+*.pyo
 index.html
 
