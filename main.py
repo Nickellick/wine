@@ -1,10 +1,8 @@
 import datetime
 from collections import defaultdict
-
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-
 import pandas
 
 def main():
