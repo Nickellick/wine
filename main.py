@@ -46,14 +46,7 @@ def main():
 
     for value in wine_dict.values():
         category = value['Категория']
-        wine = {}
-        wine['name'] = value['Название']
-        wine['variety'] = value['Сорт']
-        wine['price'] = value['Цена']
-        wine['image'] = value['Картинка']
-        wine['category'] = category
-        wine['profitable'] = value['Акция'] == 'Выгодное предложение'
-        wines[category].append(wine)
+        wines[category].append(value)
 
 
     env = Environment(
