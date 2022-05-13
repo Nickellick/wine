@@ -40,7 +40,7 @@ def main():
         )
     wine_dict = excel_data_df.transpose().to_dict()
 
-    categories = defaultdict(list)
+    wines = defaultdict(list)
 
     for value in wine_dict.values():
         category = value['Категория']
@@ -51,7 +51,7 @@ def main():
         wine['image'] = value['Картинка']
         wine['category'] = category
         wine['profitable'] = value['Акция'] == 'Выгодное предложение'
-        categories[category].append(wine)
+        wines[category].append(wine)
 
 
     env = Environment(
@@ -63,7 +63,7 @@ def main():
 
     rendered_page = template.render(
         since_years=f'{datetime.datetime.now().year - 1920}',
-        categories=categories
+        wines=wines
         )
 
     with open('index.html', 'w', encoding='utf8') as file:
