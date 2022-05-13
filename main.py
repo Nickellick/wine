@@ -2,25 +2,36 @@ from argparse import ArgumentParser
 import datetime
 from collections import defaultdict
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+import os
+from unittest.mock import DEFAULT
 
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
 
 def main():
 
-    parser = ArgumentParser(
-        description='This is example of wineshop website presented by dvmn.org'
-    )
-    parser.add_argument(
-        '--winedata',
-        type=str,
-        help='[ath to file with wine data. Default is wine.xlsx. See README.MD for more info',
-        default='wine.xlsx'
-        )
-    
-    args = parser.parse_args()
+    DEFAULT_FILE_PATH = 'wine.xlsx'
 
-    path_to_file = args.winedata
+    # Parsing arguments from env
+    load_dotenv('.env')
+    path_to_file = os.getenv(key='DVMN_WINEDATA', default=DEFAULT_FILE_PATH)
+    if path_to_file is None:
+        # Parsing arguments from cli
+        parser = ArgumentParser(
+            description='This is example of wineshop website presented by dvmn.org'
+        )
+        parser.add_argument(
+            '--winedata',
+            type=str,
+            help=f'path to file with wine data. Default is {DEFAULT_FILE_PATH}. See README.MD for more info',
+            default=DEFAULT_FILE_PATH
+            )
+
+        
+        args = parser.parse_args()
+
+        path_to_file = args.winedata
 
     excel_data_df = pandas.read_excel(
         path_to_file,
