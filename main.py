@@ -33,14 +33,13 @@ def main():
         path_to_file,
         na_values='',
         keep_default_na=False
-        )
-    wine_dict = excel_data_df.transpose().to_dict()
+        ).transpose().to_dict()
 
     wines = defaultdict(list)
 
-    for value in wine_dict.values():
-        category = value['Категория']
-        wines[category].append(value)
+    for wine in excel_data_df.values():
+        category = wine['Категория']
+        wines[category].append(wine)
 
 
     env = Environment(
