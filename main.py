@@ -15,25 +15,21 @@ def main():
 
     ESTABLISHMENT_YEAR = 1920
 
-    # Parsing arguments from env
-    load_dotenv('.env')
-    path_to_file = os.getenv(key='DVMN_WINEDATA', default=DEFAULT_FILE_PATH)
-    if path_to_file is None:
-        # Parsing arguments from cli
-        parser = ArgumentParser(
-            description='This is example of wineshop website presented by dvmn.org'
+    # Parsing arguments from cli
+    parser = ArgumentParser(
+        description='This is example of wineshop website presented by dvmn.org'
+    )
+    parser.add_argument(
+        '--winedata',
+        type=str,
+        help=f'path to file with wine data. Default is {DEFAULT_FILE_PATH}. See README.MD for more info',
+        default=DEFAULT_FILE_PATH
         )
-        parser.add_argument(
-            '--winedata',
-            type=str,
-            help=f'path to file with wine data. Default is {DEFAULT_FILE_PATH}. See README.MD for more info',
-            default=DEFAULT_FILE_PATH
-            )
 
-        
-        args = parser.parse_args()
+    
+    args = parser.parse_args()
 
-        path_to_file = args.winedata
+    path_to_file = args.winedata
 
     excel_data_df = pandas.read_excel(
         path_to_file,
