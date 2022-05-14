@@ -2,18 +2,16 @@ from argparse import ArgumentParser
 from collections import defaultdict
 import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-import os
 
-from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
+
+ESTABLISHMENT_YEAR = 1920
 
 
 def main():
 
-    DEFAULT_FILE_PATH = 'wine.xlsx'
-
-    ESTABLISHMENT_YEAR = 1920
+    default_winedata_path = 'wine.xlsx'
 
     # Parsing arguments from cli
     parser = ArgumentParser(
@@ -22,8 +20,8 @@ def main():
     parser.add_argument(
         '--winedata',
         type=str,
-        help=f'path to file with wine data. Default is {DEFAULT_FILE_PATH}. See README.MD for more info',
-        default=DEFAULT_FILE_PATH
+        help=f'path to file with wine data. Default is {default_winedata_path}. See README.MD for more info',
+        default=default_winedata_path
         )
 
     
