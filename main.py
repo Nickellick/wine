@@ -1,13 +1,13 @@
 from argparse import ArgumentParser
-import datetime
 from collections import defaultdict
+import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import os
-from unittest.mock import DEFAULT
 
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
+
 
 def main():
 
