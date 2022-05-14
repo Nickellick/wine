@@ -50,7 +50,7 @@ def main():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        since_years=f'{datetime.datetime.now().year - ESTABLISHMENT_YEAR}',
+        since_years=datetime.datetime.now().year - ESTABLISHMENT_YEAR,
         wines=wines
         )
 
