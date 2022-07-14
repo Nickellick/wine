@@ -26,7 +26,7 @@ def main():
     
     args = parser.parse_args()
 
-    path_to_file = args.winedata
+    path_to_file = args.winetable
 
     excel_data_df = pandas.read_excel(
         path_to_file,
@@ -34,11 +34,11 @@ def main():
         keep_default_na=False
         ).transpose().to_dict()
 
-    wines = defaultdict(list)
+    categories = defaultdict(list)
 
     for wine in excel_data_df.values():
         category = wine['Категория']
-        wines[category].append(wine)
+        categories[category].append(wine)
 
 
     env = Environment(
@@ -50,7 +50,7 @@ def main():
 
     rendered_page = template.render(
         since_years=datetime.datetime.now().year - ESTABLISHMENT_YEAR,
-        wines=wines
+        categories=categories
         )
 
     with open('index.html', 'w', encoding='utf8') as file:
