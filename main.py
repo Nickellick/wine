@@ -11,17 +11,16 @@ ESTABLISHMENT_YEAR = 1920
 
 def main():
 
-    default_winedata_path = 'wine.xlsx'
+    winetable_path = 'wine.xlsx'
 
-    # Parsing arguments from cli
     parser = ArgumentParser(
         description='This is example of wineshop website presented by dvmn.org'
     )
     parser.add_argument(
-        '--winedata',
+        '--winetable',
         type=str,
-        help=f'path to file with wine data. Default is {default_winedata_path}. See README.MD for more info',
-        default=default_winedata_path
+        help=f'path to file with wine data. Default is {winetable_path}. See README.MD for more info',
+        default=winetable_path
         )
 
     
